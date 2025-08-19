@@ -1,0 +1,89 @@
+# Arduino build output
+build/
+
+# IDE specific files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Backup files
+*.bak
+*~
+*.swp
+*.swo
+
+# Local configuration files
+*.local
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+.piolibdeps/
+.piolibdeps/
+.piolibdeps/
+
+# Arduino IDE
+*.elf
+*.bin
+*.eep
+*.hex
+*.lss
+*.sym
+*.lss
+*.map
+*.srec
+*.bin
+*.eep
+*.elf
+*.hex
+*.lss
+*.sym
+*.lss
+*.map
+*.srec
+*.bin
+*.eep
+*.elf
+*.hex
+*.lss
+*.sym
+*.lss
+*.map
+*.srec
+*.bin
+*.eep
+*.elf
+*.hex
+*.lss
+*.sym
+*.lss
+*.map
+*.srec
