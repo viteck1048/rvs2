@@ -22,6 +22,8 @@ A robust ESP32-based relay control system with web interface, remote management,
 
 ## Pin Configuration
 
+### Default Pinout
+
 | Function      | Default Pin |
 |---------------|-------------|
 | Input 1       | 34          |
@@ -41,6 +43,26 @@ A robust ESP32-based relay control system with web interface, remote management,
 | Button 6      | 23          |
 | Button 7      | 19          |
 | Button 8      | 22          |
+
+### Flexible Configuration
+
+The system features a flexible architecture that adapts to various hardware configurations:
+
+1. **Pin Configuration** - All pins are configured during the first flash or when `INIT_MAGIC` is changed
+2. **Device ID** - Unique identifier set during initial setup
+3. **Relay Logic Levels** - Configurable active state (HIGH/LOW) for relays
+4. **Settings Persistence** - All parameters are stored in EEPROM
+
+This architecture enables:
+- Using a single firmware for different hardware configurations
+- Updating all devices via OTA, regardless of their specific settings
+- Easy adaptation to different boards and relay modules
+- Preserving unique device settings after firmware updates
+
+To modify configuration after initial setup:
+1. Change the `INIT_MAGIC` value in the code
+2. Flash the device
+3. Perform initial configuration
 
 ## Configuration
 
