@@ -89,17 +89,10 @@ The system maintains an event log that includes:
 - WiFiClientSecure
 - DNSServer
 
-## License
-
-[Specify your license here]
 
 ## Version History
 
 - v1.18 - Added PIN field support
-
-## Support
-
-For support, please contact [your contact information]
 
 ## Server-Side Implementation
 
