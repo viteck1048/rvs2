@@ -396,7 +396,7 @@ Ticker btnscanT, btnscanT2;
 char ssid1[20] = "111";
 //char ssid1[20] = "111";
 String ssid3;
-char ssid4[20] = "111";
+char ssid4[20] = "esp32ap";
 char password1[20] = "11111111";
 String password3;
 //char password4[20] = "11111111";
