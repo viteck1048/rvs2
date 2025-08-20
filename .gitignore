@@ -1,3 +1,6 @@
+# Board configuration file with sensitive data
+set_board.h
+
 # Arduino build output
 build/
 
