@@ -394,12 +394,12 @@ Ticker btnscanT, btnscanT2;
 
 // Вказуємо ім'я та пароль WiFi-мережі
 char ssid1[20] = "111";
-//char ssid1[20] = "Redmi Note 7";
+//char ssid1[20] = "111";
 String ssid3;
 char ssid4[20] = "111";
 char password1[20] = "11111111";
 String password3;
-//char password4[20] = "24185870";
+//char password4[20] = "11111111";
 char password4[20] = "";
 
 byte status_pin_out[8];
