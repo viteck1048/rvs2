@@ -9,7 +9,21 @@ set param
 
 */
 #define VERS 1.18  // Added PIN field support
-#define DEF_SSN       751236933
+
+#include "set_board.h"
+
+#ifndef SET_BOARD
+
+#define DEF_SSN  11111111
+#define USER_AGENT "my_board"
+#define URL_FW_VERS "/firmware_update_dir/firmware_vers.txt"
+#define URL_FW_FILE "/firmware_update_dir/firmware.bin"
+#define URL_SHA256 "/firmware_update_dir/firmware_update.sha256"
+#define DEF_RAND 0x12345678
+#define URL_UPDATE_STATE "/update_state"
+#define URL_LOG_FILE "/log_file"
+
+#endif
 
 //#define INIT_MAGIC    0xA5	// код оновлення базових параметрів, після оновлення прошити ще раз з кодом 0x5A
 #define INIT_MAGIC    0x5A	// базовий код ініціалізації
@@ -90,8 +104,6 @@ bool st_con;
 #define ADR_PIN       {412, 2}   // 2 bytes for short int PIN
 
 #define EEPROM_SIZE   414
-
-#define USER_AGENT "ESP32"
 
 struct EEPROM_Address {
 	int adr;
@@ -221,7 +233,7 @@ void logSystemEvent(const String& eventMessage, const String& data_string);
 
 void check_fw_update() {
 	HTTPClient http;
-	String url = "https://" + host + "/relay_servak/firmware_update_dir/firmware_vers.txt";
+	String url = "https://" + host + URL_FW_VERS;
 	http.begin(client, url);
 	http.setUserAgent(USER_AGENT);
 	if(session_id.length() > 0) {
@@ -239,7 +251,7 @@ void check_fw_update() {
 			http.end();
 
 			// Отримати SHA256
-			String sha_url = "https://" + String(host) + "/relay_servak/firmware_update_dir/firmware_update.sha256";
+			String sha_url = "https://" + String(host) + URL_SHA256;
 			http.begin(client, sha_url);
 			http.setUserAgent(USER_AGENT);
 			if(session_id.length() > 0) {
@@ -260,7 +272,7 @@ void check_fw_update() {
 			http.end();
 
 			// Скачати firmware
-			String bin_url = "http://" + String(host) + "/relay_servak/firmware_update_dir/firmware_update.bin";
+			String bin_url = "https://" + String(host) + URL_FW_FILE;
 			http.begin(client, bin_url);
 			http.setUserAgent(USER_AGENT);
 			if(session_id.length() > 0) {
@@ -351,7 +363,7 @@ class MyRand {
 	
 	public:
 		MyRand() {
-			a = 0xad20f153;
+			a = DEF_RAND;
 		}
 		uint32_t rand() {
 			uint32_t b = a;
@@ -361,7 +373,7 @@ class MyRand {
 			return a = b;
 		}
 		void srand(uint32_t i) {
-			a = i ^ 0xad20f153;
+			a = i ^ DEF_RAND;
 		}
 		void correct(uint32_t i) {
 			a = i ^ a;
@@ -381,11 +393,11 @@ Button2 *pBtns = nullptr;
 Ticker btnscanT, btnscanT2;
 
 // Вказуємо ім'я та пароль WiFi-мережі
-char ssid1[20] = "ceh1_el";
+char ssid1[20] = "111";
 //char ssid1[20] = "Redmi Note 7";
 String ssid3;
-char ssid4[20] = "esp32at";
-char password1[20] = "24185870";
+char ssid4[20] = "111";
+char password1[20] = "11111111";
 String password3;
 //char password4[20] = "24185870";
 char password4[20] = "";
@@ -902,8 +914,8 @@ void setup() {
 	
 	//ite_str_eepr(ADR_TIMEZONE, "Europe/Sofia");
 	//ite_str_eepr(ADR_TIMEZONE, "Europe/Kyiv");
-	//ite_str_eepr(ADR_LOGIN, "Yo7h!fvgkYbhde6");
-	//ite_str_eepr(ADR_PASSWORD, "!ndy6xj38nBTVkn");
+	//ite_str_eepr(ADR_LOGIN, "qwertyuio");
+	//ite_str_eepr(ADR_PASSWORD, "asdfghjkl");
 
 	Serial.begin(115200);
 	client.setInsecure();
@@ -1080,7 +1092,8 @@ void loop() {
 		char buff[64];  // Increased buffer size for PIN parameter
 
 		// Формуємо та надсилаємо запит
-		client.print("POST /relay_servak/update_state");
+		client.print("POST ");
+		client.print(URL_UPDATE_STATE);
 		client.print(" HTTP/1.1\r\n");
 		client.print("Host: ");
 		client.print(host.c_str());
@@ -1423,7 +1436,7 @@ void sendLogToServer() {
 		relays_state_str += " ";
 	}
 	relays_state_str += "\n";
-	String postRequest = "POST /relay_servak/log_file HTTP/1.1\r\n";
+	String postRequest = "POST " + URL_LOG_FILE + " HTTP/1.1\r\n";
 	postRequest += "Host: " + host + "\r\n";
 	postRequest += "User-Agent: " + String(USER_AGENT) + "\r\n";
 	if (session_id.length() > 0) {
