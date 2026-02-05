@@ -209,6 +209,6 @@ Returns error response for invalid requests:
 
 The server-side implementation for this project is available in a separate repository:
 
-[servak_na_cpp_relays]([https://github.com/viteck1048/javaIoTserver/tree/main/servak_na_winapi_relays])
+https://github.com/viteck1048/javaIoTserver/tree/main/servak_na_winapi_relays
 
 The server handles device communication, command processing, and state management as described in the Server-Side Implementation section above.
